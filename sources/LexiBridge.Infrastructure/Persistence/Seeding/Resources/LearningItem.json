@@ -1,0 +1,50 @@
+[
+  {
+    "headword": "resilient",
+    "partOfSpeech": 3,
+    "accent": 1,
+    "ipa": "rɪˈzɪl.i.ənt",
+    "cloze": "r_s_l__nt",
+    "definition": "able to become strong, healthy, or successful again after something difficult",
+    "translation": "kiên cường",
+    "examples": [
+      "Children are often very resilient.",
+      "A resilient team can recover quickly after failure."
+    ],
+    "audioPath": "https://dictionary.cambridge.org/media/english/uk_pron/r/rez/resilient.mp3",
+    "imagePath": "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+    "dictionaryEntryId": null
+  },
+  {
+    "headword": "analyze",
+    "partOfSpeech": 2,
+    "accent": 0,
+    "ipa": "ˈæn.əl.aɪz",
+    "cloze": "_n_l_z_",
+    "definition": "to study something carefully in order to understand it",
+    "translation": "phân tích",
+    "examples": [
+      "Researchers analyze the results before publishing.",
+      "Please analyze customer feedback this week."
+    ],
+    "audioPath": "https://dictionary.cambridge.org/media/english/us_pron/a/ana/analyze.mp3",
+    "imagePath": "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
+    "dictionaryEntryId": null
+  },
+  {
+    "headword": "collaboration",
+    "partOfSpeech": 1,
+    "accent": 0,
+    "ipa": "kəˌlæb.əˈreɪ.ʃən",
+    "cloze": "c_ll_b_r_t__n",
+    "definition": "the act of working together with others to achieve something",
+    "translation": "sự hợp tác",
+    "examples": [
+      "The project is a collaboration between two schools.",
+      "Good collaboration improves productivity."
+    ],
+    "audioPath": "https://www.oxfordlearnersdictionaries.com/media/english/us_pron/c/coll/collaboration.mp3",
+    "imagePath": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+    "dictionaryEntryId": null
+  }
+]
