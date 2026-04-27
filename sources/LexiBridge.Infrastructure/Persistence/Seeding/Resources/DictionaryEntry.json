@@ -1,0 +1,98 @@
+﻿[
+  {
+    "headword": "resilient",
+    "partOfSpeech": 3,
+    "source": 1,
+    "pronunciations": [
+      {
+        "ipa": "rɪˈzɪl.i.ənt",
+        "accent": 1,
+        "audioUrl": "https://dictionary.cambridge.org/media/english/uk_pron/r/rez/resilient.mp3",
+        "audioSource": 1
+      },
+      {
+        "ipa": "rɪˈzɪl.jənt",
+        "accent": 0,
+        "audioUrl": "https://dictionary.cambridge.org/media/english/us_pron/r/rez/resilient.mp3",
+        "audioSource": 1
+      }
+    ],
+    "definitions": [
+      {
+        "text": "able to become strong, healthy, or successful again after something bad happens",
+        "examples": [
+          "Children are often very resilient.",
+          "A resilient team can recover quickly after failure."
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+        "source": 2
+      }
+    ]
+  },
+  {
+    "headword": "analyze",
+    "partOfSpeech": 2,
+    "source": 1,
+    "pronunciations": [
+      {
+        "ipa": "ˈæn.əl.aɪz",
+        "accent": 0,
+        "audioUrl": "https://dictionary.cambridge.org/media/english/us_pron/a/ana/analyze.mp3",
+        "audioSource": 1
+      }
+    ],
+    "definitions": [
+      {
+        "text": "to study or examine something in detail in order to understand it",
+        "examples": [
+          "Researchers analyze the data before publishing results.",
+          "We need to analyze customer feedback carefully."
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg",
+        "source": 3
+      }
+    ]
+  },
+  {
+    "headword": "collaboration",
+    "partOfSpeech": 1,
+    "source": 2,
+    "pronunciations": [
+      {
+        "ipa": "kəˌlæb.əˈreɪ.ʃən",
+        "accent": 1,
+        "audioUrl": "https://www.oxfordlearnersdictionaries.com/media/english/uk_pron/c/coll/collaboration.mp3",
+        "audioSource": 1
+      },
+      {
+        "ipa": "kəˌlæb.əˈreɪ.ʃən",
+        "accent": 0,
+        "audioUrl": "https://www.oxfordlearnersdictionaries.com/media/english/us_pron/c/coll/collaboration.mp3",
+        "audioSource": 1
+      }
+    ],
+    "definitions": [
+      {
+        "text": "the situation of two or more people working together to create or achieve the same thing",
+        "examples": [
+          "The project is a collaboration between two universities.",
+          "Effective collaboration improves product quality."
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+        "source": 2
+      }
+    ]
+  }
+]
