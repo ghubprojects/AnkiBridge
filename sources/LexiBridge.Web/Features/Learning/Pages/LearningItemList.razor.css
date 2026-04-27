@@ -1,0 +1,32 @@
+﻿::deep fluent-toolbar {
+    padding: 0;
+    background-color: transparent;
+}
+
+    ::deep fluent-toolbar fluent-button::part(control) {
+        border: none;
+    }
+
+.toolbar-button-group {
+    margin: 0;
+}
+
+::deep fluent-tab {
+    gap: 4px;
+}
+
+::deep fluent-tab-panel {
+    padding: 0;
+}
+
+::deep .paginator {
+    display: flex;
+}
+
+    ::deep .paginator > .summary {
+        flex: 1;
+    }
+
+    ::deep .paginator > .paginator-nav {
+        margin-inline-start: 16px !important;
+    }

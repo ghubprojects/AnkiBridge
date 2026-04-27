@@ -1,14 +1,33 @@
+using Microsoft.Extensions.Hosting;
+using Projects;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cache = builder.AddRedis("cache");
+var postgres = builder.AddPostgres("postgres")
+    .WithImageTag("latest")
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithPgWeb();
+var database = postgres.AddDatabase("lexibridgedb");
 
-var apiService = builder.AddProject<Projects.LexiBridge_ApiService>("apiservice");
+//var cache = builder.AddRedis("cache")
+//    .WithRedisInsight();
 
-builder.AddProject<Projects.LexiBridge_Web>("webfrontend")
+var blobs = builder.AddAzureStorage("storage")
+    .RunAsEmulator(azurite => azurite.WithLifetime(ContainerLifetime.Persistent))
+    .AddBlobs("blobs");
+
+var migrationService = builder.AddProject<LexiBridge_MigrationService>("migrationservice")
+    .WithReference(database)
+    .WaitFor(database);
+
+builder.AddProject<LexiBridge_Web>("webfrontend")
     .WithExternalHttpEndpoints()
-    .WithReference(cache)
-    .WaitFor(cache)
-    .WithReference(apiService)
-    .WaitFor(apiService);
+    .WithReference(database)
+    .WaitFor(database)
+    //.WithReference(cache)
+    //.WaitFor(cache)
+    .WithReference(blobs)
+    .WaitFor(blobs)
+    .WaitForCompletion(migrationService);
 
 builder.Build().Run();

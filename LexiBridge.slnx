@@ -4,12 +4,15 @@
     <Project Path="aspire/LexiBridge.ServiceDefaults/LexiBridge.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/sources/">
-    <Project Path="sources/LexiBridge.ApiService/LexiBridge.ApiService.csproj" />
+    <Project Path="sources/LexiBridge.Application/LexiBridge.Application.csproj" />
     <Project Path="sources/LexiBridge.Domain/LexiBridge.Domain.csproj" />
+    <Project Path="sources/LexiBridge.Infrastructure/LexiBridge.Infrastructure.csproj" />
+    <Project Path="sources/LexiBridge.MigrationService/LexiBridge.MigrationService.csproj" />
     <Project Path="sources/LexiBridge.Shared/LexiBridge.Shared.csproj" />
     <Project Path="sources/LexiBridge.Web/LexiBridge.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/LexiBridge.Application.UnitTests/LexiBridge.Application.UnitTests.csproj" />
     <Project Path="tests/LexiBridge.Tests/LexiBridge.Tests.csproj" />
   </Folder>
 </Solution>

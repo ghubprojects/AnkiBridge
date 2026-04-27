@@ -1,0 +1,6 @@
+﻿namespace LexiBridge.Application.Features.Dictionary.DTO;
+
+public sealed record DefinitionDTO(
+    string Text,
+    IReadOnlyList<string> Examples
+);
