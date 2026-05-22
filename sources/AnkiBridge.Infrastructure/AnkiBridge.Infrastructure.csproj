@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Persistence\Seeding\Resources\AnkiDeck.json" />
+    <None Remove="Persistence\Seeding\Resources\AnkiNote.json" />
+    <None Remove="Persistence\Seeding\Resources\AnkiNoteType.json" />
+    <None Remove="Persistence\Seeding\Resources\LearningEntry.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiDeck.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiNote.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiNoteType.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\DictionaryEntry.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\LearningEntry.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Azure.Storage.Blobs" Version="13.3.0" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnkiBridge.Application\AnkiBridge.Application.csproj" />
+    <ProjectReference Include="..\AnkiBridge.Domain\AnkiBridge.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

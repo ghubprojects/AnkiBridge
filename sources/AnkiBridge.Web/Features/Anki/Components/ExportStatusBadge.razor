@@ -1,0 +1,8 @@
+﻿@using Humanizer
+
+<FluentBadge Appearance="Appearance.Neutral"
+             BackgroundColor="@BackgroundColor"
+             Fill="highlight"
+             Color="#fff">
+    @Status.ToString().Humanize()
+</FluentBadge>

@@ -1,0 +1,18 @@
+[
+  {
+    "deckName": "Default",
+    "noteTypeName": "Basic"
+  },
+  {
+    "deckName": "English",
+    "noteTypeName": "Basic"
+  },
+  {
+    "deckName": "Default",
+    "noteTypeName": "Basic (and reversed card)"
+  },
+  {
+    "deckName": "English",
+    "noteTypeName": "Basic (and reversed card)"
+  }
+]
