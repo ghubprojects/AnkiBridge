@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire/AnkiBridge.AppHost/AnkiBridge.AppHost.csproj" />
+    <Project Path="aspire/AnkiBridge.ServiceDefaults/AnkiBridge.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/sources/">
+    <Project Path="sources/AnkiBridge.Application/AnkiBridge.Application.csproj" />
+    <Project Path="sources/AnkiBridge.Domain/AnkiBridge.Domain.csproj" />
+    <Project Path="sources/AnkiBridge.Infrastructure/AnkiBridge.Infrastructure.csproj" />
+    <Project Path="sources/AnkiBridge.MigrationService/AnkiBridge.MigrationService.csproj" />
+    <Project Path="sources/AnkiBridge.Shared/AnkiBridge.Shared.csproj" />
+    <Project Path="sources/AnkiBridge.Web/AnkiBridge.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AnkiBridge.Application.UnitTests/AnkiBridge.Application.UnitTests.csproj" />
+    <Project Path="tests/AnkiBridge.Tests/AnkiBridge.Tests.csproj" />
+  </Folder>
+</Solution>
