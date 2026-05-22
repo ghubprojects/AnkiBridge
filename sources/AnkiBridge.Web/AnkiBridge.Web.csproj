@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\aspire\AnkiBridge.ServiceDefaults\AnkiBridge.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\AnkiBridge.Application\AnkiBridge.Application.csproj" />
+    <ProjectReference Include="..\AnkiBridge.Infrastructure\AnkiBridge.Infrastructure.csproj" />
+    <ProjectReference Include="..\AnkiBridge.Shared\AnkiBridge.Shared.csproj" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.14.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="13.3.0" />
+  </ItemGroup>
+
+</Project>
