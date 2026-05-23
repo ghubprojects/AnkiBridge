@@ -1,6 +1,6 @@
-﻿using AnkiBridge.Application.Abstractions.Query.Pagination;
-using AnkiBridge.Application.Features.Learning.Abstractions;
-using AnkiBridge.Application.Features.Learning.DTO;
+﻿using AnkiBridge.Application.Common.Query.Pagination;
+using AnkiBridge.Application.Features.Learning.Contracts.QueryServices;
+using AnkiBridge.Application.Features.Learning.Contracts.QueryServices.Models;
 using AnkiBridge.Infrastructure.Persistence.DatabaseContext;
 using AnkiBridge.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ public sealed class LearningEntryQueryService(
     ApplicationDbContext context)
     : ILearningEntryQueryService
 {
-    public async Task<PaginatedData<LearningEntrySearchResultDTO>> SearchAsync(
+    public async Task<PaginatedResult<LearningEntrySearchResult>> SearchAsync(
         string? keyword,
         int pageNumber,
         int pageSize,
@@ -24,10 +24,10 @@ public sealed class LearningEntryQueryService(
 
         return await query
             .OrderByDescending(x => x.CreatedAt)
-            .ToPaginatedDataAsync(
+            .ToPaginatedResultAsync(
                 pageNumber,
                 pageSize,
-                x => new LearningEntrySearchResultDTO(
+                x => new LearningEntrySearchResult(
                     x.Id,
                     x.Headword,
                     x.PartOfSpeech,

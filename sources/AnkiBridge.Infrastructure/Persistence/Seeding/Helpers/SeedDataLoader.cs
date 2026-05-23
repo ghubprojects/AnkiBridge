@@ -16,8 +16,8 @@ internal static class SeedDataLoader
         var resourceDirectoryName = $"AnkiBridge.Infrastructure.Persistence.Seeding.Resources";
 
         var typeName = typeof(T).Name;
-        if (typeName.EndsWith("SeedDTO"))
-            typeName = typeName[..^"SeedDTO".Length];
+        if (typeName.EndsWith("Seed"))
+            typeName = typeName[..^"Seed".Length];
 
         var resourceName = $"{resourceDirectoryName}.{typeName}.json";
 

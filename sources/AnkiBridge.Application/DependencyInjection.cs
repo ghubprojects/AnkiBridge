@@ -1,8 +1,7 @@
-﻿using AnkiBridge.Application.Abstractions.Dispatching;
-using AnkiBridge.Application.Abstractions.IntegrationEvents;
-using AnkiBridge.Application.Behaviors;
+﻿using AnkiBridge.Application.Behaviors;
+using AnkiBridge.Application.Common.IntegrationEvents;
 using AnkiBridge.Application.ExceptionHandlers;
-using AnkiBridge.Application.Features.AnkiIntegration.IntegrationEvents;
+using AnkiBridge.Application.Features.Flashcard.IntegrationEvents;
 using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,9 +24,6 @@ public static class DependencyInjection
             config.RegisterServicesFromAssembly(assembly);
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
-
-        // Register the request dispatcher
-        services.AddScoped<IRequestDispatcher, RequestDispatcher>();
 
         // Register integration event handlers
         services.AddSubscription<AnkiNoteExportStartedIntegrationEvent, AnkiNoteExportStartedIntegrationEventHandler>();

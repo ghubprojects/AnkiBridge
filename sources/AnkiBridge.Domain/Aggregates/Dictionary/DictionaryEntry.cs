@@ -12,8 +12,8 @@ public class DictionaryEntry : AggregateRoot<Guid>
     private readonly List<Pronunciation> _pronunciations = [];
     public IReadOnlyCollection<Pronunciation> Pronunciations => _pronunciations.AsReadOnly();
 
-    private readonly List<EntryDefinition> _definitions = [];
-    public IReadOnlyCollection<EntryDefinition> Definitions => _definitions.AsReadOnly();
+    private readonly List<DictionaryDefinition> _definitions = [];
+    public IReadOnlyCollection<DictionaryDefinition> Definitions => _definitions.AsReadOnly();
 
     private readonly List<EntryImage> _images = [];
     public IReadOnlyCollection<EntryImage> Images => _images.AsReadOnly();
@@ -41,7 +41,7 @@ public class DictionaryEntry : AggregateRoot<Guid>
     public void AddDefinition(string text, IEnumerable<string> examples)
     {
         var orderIndex = _definitions.Count + 1;
-        var definition = EntryDefinition.Create(text, orderIndex);
+        var definition = DictionaryDefinition.Create(text, orderIndex);
 
         foreach (var example in examples)
             definition.AddExample(example);

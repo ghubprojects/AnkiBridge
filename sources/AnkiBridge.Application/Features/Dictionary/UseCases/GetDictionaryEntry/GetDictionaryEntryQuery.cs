@@ -1,4 +1,4 @@
-﻿using AnkiBridge.Application.Features.Dictionary.DTO;
+﻿using AnkiBridge.Application.Features.Dictionary.Contracts.QueryServices.Models;
 using AnkiBridge.Shared.Results;
 using MediatR;
 
@@ -6,4 +6,4 @@ namespace AnkiBridge.Application.Features.Dictionary.UseCases.GetDictionaryEntry
 
 public sealed record GetDictionaryEntryQuery(
     Guid EntryId
-) : IRequest<Result<DictionaryEntryDetailDTO>>;
+) : IRequest<Result<DictionaryEntryDetail>>;

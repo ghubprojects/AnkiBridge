@@ -1,4 +1,4 @@
-﻿using AnkiBridge.Application.Features.Learning.DTO;
+﻿using AnkiBridge.Application.Features.Learning.Contracts.QueryServices.Models;
 using AnkiBridge.Domain.Aggregates.Learning;
 using AnkiBridge.Shared.Results;
 using MediatR;
@@ -12,7 +12,7 @@ public sealed class UpdateLearningEntryHandler(ILearningEntryRepository Learning
     {
         var item = await LearningEntryRepository.GetByIdAsync(request.Id, cancellationToken);
         if (item is null)
-            return Result.Failure<LearningEntryDetailDTO>("Learning item not found.", ErrorType.NotFound);
+            return Result.Failure<LearningEntryDetail>("Learning item not found.", ErrorType.NotFound);
 
         item.Update(
             request.Headword,

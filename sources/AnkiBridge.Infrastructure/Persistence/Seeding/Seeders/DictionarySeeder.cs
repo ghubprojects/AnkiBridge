@@ -1,8 +1,8 @@
 ﻿using AnkiBridge.Domain.Aggregates.Dictionary;
 using AnkiBridge.Infrastructure.Persistence.Abstractions;
 using AnkiBridge.Infrastructure.Persistence.DatabaseContext;
-using AnkiBridge.Infrastructure.Persistence.Seeding.DTO;
 using AnkiBridge.Infrastructure.Persistence.Seeding.Helpers;
+using AnkiBridge.Infrastructure.Persistence.Seeding.Models;
 
 namespace AnkiBridge.Infrastructure.Persistence.Seeding.Seeders;
 
@@ -12,7 +12,7 @@ public sealed class DictionarySeeder : IDbSeeder
 
     public async Task SeedAsync(ApplicationDbContext context, CancellationToken cancellationToken)
     {
-        var seeds = SeedDataLoader.GetSeedDataFromResource<DictionaryEntrySeedDTO>();
+        var seeds = SeedDataLoader.GetSeedDataFromResource<DictionaryEntrySeed>();
 
         foreach (var seed in seeds)
         {

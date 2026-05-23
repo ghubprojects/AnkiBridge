@@ -7,16 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Persistence\Seeding\Resources\AnkiDeck.json" />
-    <None Remove="Persistence\Seeding\Resources\AnkiNote.json" />
-    <None Remove="Persistence\Seeding\Resources\AnkiNoteType.json" />
     <None Remove="Persistence\Seeding\Resources\LearningEntry.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiDeck.json" />
-    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiNote.json" />
-    <EmbeddedResource Include="Persistence\Seeding\Resources\AnkiNoteType.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\Deck.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\Note.json" />
+    <EmbeddedResource Include="Persistence\Seeding\Resources\NoteType.json" />
     <EmbeddedResource Include="Persistence\Seeding\Resources\DictionaryEntry.json" />
     <EmbeddedResource Include="Persistence\Seeding\Resources\LearningEntry.json" />
   </ItemGroup>

@@ -17,12 +17,12 @@ namespace AnkiBridge.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.5")
+                .HasAnnotation("ProductVersion", "10.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AnkiBridge.Application.Abstractions.TransactionalOutbox.OutboxMessage", b =>
+            modelBuilder.Entity("AnkiBridge.Application.Common.Contracts.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -53,258 +53,31 @@ namespace AnkiBridge.Infrastructure.Migrations
 
                     b.HasIndex("ProcessedDate", "CreationDate");
 
-                    b.ToTable("OutboxMessages", "TransactionalOutbox");
+                    b.ToTable("OutboxMessages", "Outbox");
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.CardTemplates.CardTemplate", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryDefinition", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Css")
-                        .IsRequired()
-                        .HasMaxLength(4000)
-                        .HasColumnType("character varying(4000)");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("LastModifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("CardTemplate", "Flashcard");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.CardTemplates.CardType", b =>
-                {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("DictionaryEntryId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BackHtml")
-                        .IsRequired()
-                        .HasMaxLength(4000)
-                        .HasColumnType("character varying(4000)");
-
-                    b.Property<Guid>("CardTemplateId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FrontHtml")
-                        .IsRequired()
-                        .HasMaxLength(4000)
-                        .HasColumnType("character varying(4000)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("LastModifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("LastModifiedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CardTemplateId");
-
-                    b.HasIndex("CardTemplateId", "Name");
-
-                    b.ToTable("CardType", "Flashcard");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.Deck.AnkiDeck", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<long>("ExternalId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("LastModifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("LastModifiedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExternalId");
-
-                    b.ToTable("AnkiDeck", "AnkiIntegration");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.Note.AnkiNote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DeckId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("ExportedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("ExternalId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("LastModifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("LastModifiedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("LearningEntryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("NoteTypeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("OrderIndex")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeckId");
-
-                    b.HasIndex("NoteTypeId");
-
-                    b.HasIndex("LearningEntryId", "NoteTypeId", "DeckId")
-                        .IsUnique();
-
-                    b.ToTable("AnkiNote", "AnkiIntegration");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.NoteType.AnkiNoteType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<long>("ExternalId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("LastModifiedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("LastModifiedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExternalId");
+                    b.HasIndex("DictionaryEntryId");
 
-                    b.ToTable("AnkiNoteType", "AnkiIntegration");
+                    b.ToTable("DictionaryDefinition", "Dictionary");
                 });
 
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryEntry", b =>
@@ -336,31 +109,7 @@ namespace AnkiBridge.Infrastructure.Migrations
                     b.ToTable("DictionaryEntry", "Dictionary");
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryDefinition", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("DictionaryEntryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("OrderIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DictionaryEntryId");
-
-                    b.ToTable("EntryDefinition", "Dictionary");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryExample", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryExample", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -378,7 +127,7 @@ namespace AnkiBridge.Infrastructure.Migrations
 
                     b.HasIndex("DefinitionId");
 
-                    b.ToTable("EntryExample", "Dictionary");
+                    b.ToTable("DictionaryExample", "Dictionary");
                 });
 
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryImage", b =>
@@ -443,6 +192,257 @@ namespace AnkiBridge.Infrastructure.Migrations
                     b.HasIndex("Ipa", "Accent");
 
                     b.ToTable("Pronunciation", "Dictionary");
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.CardTemplates.CardTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Css")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("CardTemplate", "Flashcard");
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.CardTemplates.CardType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BackHtml")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
+
+                    b.Property<Guid>("CardTemplateId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FrontHtml")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardTemplateId");
+
+                    b.HasIndex("CardTemplateId", "Name");
+
+                    b.ToTable("CardType", "Flashcard");
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.Decks.Deck", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ExternalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
+
+                    b.ToTable("Deck", "Flashcard");
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.NoteTypes.NoteType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ExternalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalId");
+
+                    b.ToTable("NoteType", "Flashcard");
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.Notes.Note", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DeckId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("ExportedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("ExternalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("LearningEntryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("NoteTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeckId");
+
+                    b.HasIndex("NoteTypeId");
+
+                    b.HasIndex("LearningEntryId", "NoteTypeId", "DeckId")
+                        .IsUnique();
+
+                    b.ToTable("Note", "Flashcard");
                 });
 
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Learning.LearningEntry", b =>
@@ -574,43 +574,7 @@ namespace AnkiBridge.Infrastructure.Migrations
                     b.ToTable("LearningExample", "Learning");
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.CardTemplates.CardType", b =>
-                {
-                    b.HasOne("AnkiBridge.Domain.Aggregates.AnkiIntegration.CardTemplates.CardTemplate", null)
-                        .WithMany("CardTypes")
-                        .HasForeignKey("CardTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.Note.AnkiNote", b =>
-                {
-                    b.HasOne("AnkiBridge.Domain.Aggregates.AnkiIntegration.Deck.AnkiDeck", "Deck")
-                        .WithMany()
-                        .HasForeignKey("DeckId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AnkiBridge.Domain.Aggregates.Learning.LearningEntry", "LearningEntry")
-                        .WithMany()
-                        .HasForeignKey("LearningEntryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("AnkiBridge.Domain.Aggregates.AnkiIntegration.NoteType.AnkiNoteType", "NoteType")
-                        .WithMany()
-                        .HasForeignKey("NoteTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Deck");
-
-                    b.Navigation("LearningEntry");
-
-                    b.Navigation("NoteType");
-                });
-
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryDefinition", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryDefinition", b =>
                 {
                     b.HasOne("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryEntry", null)
                         .WithMany("Definitions")
@@ -619,9 +583,9 @@ namespace AnkiBridge.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryExample", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryExample", b =>
                 {
-                    b.HasOne("AnkiBridge.Domain.Aggregates.Dictionary.EntryDefinition", null)
+                    b.HasOne("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryDefinition", null)
                         .WithMany("Examples")
                         .HasForeignKey("DefinitionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -646,6 +610,42 @@ namespace AnkiBridge.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.CardTemplates.CardType", b =>
+                {
+                    b.HasOne("AnkiBridge.Domain.Aggregates.Flashcard.CardTemplates.CardTemplate", null)
+                        .WithMany("CardTypes")
+                        .HasForeignKey("CardTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.Notes.Note", b =>
+                {
+                    b.HasOne("AnkiBridge.Domain.Aggregates.Flashcard.Decks.Deck", "Deck")
+                        .WithMany()
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AnkiBridge.Domain.Aggregates.Learning.LearningEntry", "LearningEntry")
+                        .WithMany()
+                        .HasForeignKey("LearningEntryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AnkiBridge.Domain.Aggregates.Flashcard.NoteTypes.NoteType", "NoteType")
+                        .WithMany()
+                        .HasForeignKey("NoteTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Deck");
+
+                    b.Navigation("LearningEntry");
+
+                    b.Navigation("NoteType");
+                });
+
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Learning.LearningExample", b =>
                 {
                     b.HasOne("AnkiBridge.Domain.Aggregates.Learning.LearningEntry", null)
@@ -655,9 +655,9 @@ namespace AnkiBridge.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.AnkiIntegration.CardTemplates.CardTemplate", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryDefinition", b =>
                 {
-                    b.Navigation("CardTypes");
+                    b.Navigation("Examples");
                 });
 
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.DictionaryEntry", b =>
@@ -669,9 +669,9 @@ namespace AnkiBridge.Infrastructure.Migrations
                     b.Navigation("Pronunciations");
                 });
 
-            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Dictionary.EntryDefinition", b =>
+            modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Flashcard.CardTemplates.CardTemplate", b =>
                 {
-                    b.Navigation("Examples");
+                    b.Navigation("CardTypes");
                 });
 
             modelBuilder.Entity("AnkiBridge.Domain.Aggregates.Learning.LearningEntry", b =>

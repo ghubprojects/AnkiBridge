@@ -1,6 +1,7 @@
 using AnkiBridge.Application.Features.Learning.UseCases.SearchLearningEntries;
 using AnkiBridge.Shared.Extensions;
-using AnkiBridge.Web.Features.Anki.Components;
+using AnkiBridge.Web.Features.Flashcard.Components;
+using AnkiBridge.Web.Features.Flashcard.Models;
 using AnkiBridge.Web.Features.Learning.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -11,7 +12,7 @@ public partial class LearningEntryList
 {
     private string Keyword { get; set; } = string.Empty;
 
-    protected override async Task RefreshItemsAsync(GridItemsProviderRequest<LearningEntryGridItemViewModel> request)
+    protected override async Task RefreshItemsAsync(GridItemsProviderRequest<LearningEntryGridItem> request)
     {
         if (request.Count is null)
             return;
@@ -32,7 +33,7 @@ public partial class LearningEntryList
                     async data =>
                     {
                         GridItems = data.Items
-                            .Select(x => new LearningEntryGridItemViewModel
+                            .Select(x => new LearningEntryGridItem
                             {
                                 Id = x.Id,
                                 Headword = x.Headword,
@@ -59,25 +60,25 @@ public partial class LearningEntryList
 
     private async Task ShowCreateNotesDialogAsync()
     {
-        var dialogContent = new CreateAnkiNotesDialogContent(SelectedGridItemIds.ToList());
+        var dialogContent = new CreateNotesDialogContent(SelectedGridItemIds.ToList());
         var dialogParams = new DialogParameters
         {
-            Title = "Create Anki notes",
+            Title = "Create Flashcard notes",
             Width = "800px",
             PreventDismissOnOverlayClick = true,
         };
 
-        var dialog = await DialogService.ShowDialogAsync<CreateAnkiNotesDialog>(dialogContent, dialogParams);
+        var dialog = await DialogService.ShowDialogAsync<CreateNotesDialog>(dialogContent, dialogParams);
         var dialogResult = await dialog.Result;
 
         if (!dialogResult.Cancelled && dialogResult.Data is not null)
             ToastService.ShowSuccess(
-                "The Anki notes are being created.",
+                "The notes are being created.",
                 10000,
                 "View",
-                EventCallback.Factory.Create<ToastResult>(this, GoToAnkiNotesPage));
+                EventCallback.Factory.Create<ToastResult>(this, GoToFlashcardNotesPage));
     }
 
-    private void GoToAnkiNotesPage()
-        => Navigation.NavigateTo("/anki-notes");
+    private void GoToFlashcardNotesPage()
+        => Navigation.NavigateTo("/flashcard/notes");
 }

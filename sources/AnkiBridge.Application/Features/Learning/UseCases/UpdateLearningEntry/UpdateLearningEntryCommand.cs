@@ -1,4 +1,4 @@
-﻿using AnkiBridge.Application.Features.Learning.DTO;
+﻿using AnkiBridge.Application.Features.Learning.Contracts.QueryServices.Models;
 using AnkiBridge.Domain.Enums;
 using AnkiBridge.Shared.Results;
 using MediatR;
@@ -14,7 +14,7 @@ public sealed record UpdateLearningEntryCommand(
     string Cloze,
     string Definition,
     string Translation,
-    List<LearningExampleDTO> Examples,
+    List<LearningEntryDetailExample> Examples,
     string? AudioUrl,
     string? ImageUrl,
     Guid? DictionaryEntryId

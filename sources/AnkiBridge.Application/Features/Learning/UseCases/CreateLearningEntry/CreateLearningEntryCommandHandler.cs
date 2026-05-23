@@ -1,5 +1,4 @@
-﻿using AnkiBridge.Application.Abstractions.Services;
-using AnkiBridge.Application.Features.Learning.DTO;
+﻿using AnkiBridge.Application.Common.Contracts.Storage;
 using AnkiBridge.Domain.Aggregates.Learning;
 using AnkiBridge.Shared.Results;
 using MediatR;
@@ -8,7 +7,7 @@ namespace AnkiBridge.Application.Features.Learning.UseCases.CreateLearningEntry;
 
 public sealed class CreateLearningEntryCommandHandler(
     ILearningEntryRepository learningEntryRepository,
-    IFileStorageService fileStorageService)
+    IFileStorage fileStorageService)
     : IRequestHandler<CreateLearningEntryCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateLearningEntryCommand request, CancellationToken cancellationToken)
@@ -32,7 +31,6 @@ public sealed class CreateLearningEntryCommandHandler(
         );
 
         var basePath = $"learning-entries/{learningEntry.Id}";
-        var pendingUploads = new List<PendingFileUpload>();
 
         if (request.AudioStream is not null)
         {
