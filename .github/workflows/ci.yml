@@ -1,18 +1,16 @@
-name: lexibridge-ci
+name: ankibridge-ci
 
 on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 env:
   DOTNET_VERSION: "10.0.x"
-  SOLUTION_FILE: "LexiBridge.slnx"
+  SOLUTION_FILE: "AnkiBridge.slnx"
 
 jobs:
   build-test:
@@ -44,4 +42,4 @@ jobs:
       # Integration tests (disabled for CI).
       # Will be executed in a nightly workflow.
       # - name: Run integration tests
-      #   run: dotnet test tests/LexiBridge.Tests/LexiBridge.Tests.csproj --configuration Release --no-build --verbosity normal
+      #   run: dotnet test tests/AnkiBridge.Tests/AnkiBridge.Tests.csproj --configuration Release --no-build --verbosity normal
