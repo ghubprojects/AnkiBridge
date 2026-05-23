@@ -1,6 +1,6 @@
 @page "/learning-entries"
 @rendermode InteractiveServer
-@inherits GridPageComponentBase<LearningEntryGridItemViewModel, Guid>
+@inherits GridPageComponentBase<LearningEntryGridItem, Guid>
 
 @using Humanizer
 @using AnkiBridge.Web.Components.Abstractions
@@ -69,7 +69,7 @@
     </FluentStack>
 
     <FluentStack Orientation="Orientation.Vertical" Style="padding-top:10px">
-        <FluentDataGrid TGridItem="LearningEntryGridItemViewModel"
+        <FluentDataGrid TGridItem="LearningEntryGridItem"
                         @ref="@dataGrid"
                         Items="@GridItems"
                         Pagination="@pagination"
@@ -80,7 +80,7 @@
                         AutoFit="true"
                         ShowHover="true">
             <ChildContent>
-                <SelectColumn TGridItem="LearningEntryGridItemViewModel"
+                <SelectColumn TGridItem="LearningEntryGridItem"
                               SelectMode="DataGridSelectMode.Multiple"
                               Property="@(x => SelectedGridItemIds.Contains(x.Id))"
                               OnSelect="HandleSelectItem"

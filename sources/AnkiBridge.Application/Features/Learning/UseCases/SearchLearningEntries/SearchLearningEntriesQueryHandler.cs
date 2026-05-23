@@ -1,15 +1,15 @@
-﻿using AnkiBridge.Application.Abstractions.Query.Pagination;
-using AnkiBridge.Application.Features.Learning.Abstractions;
-using AnkiBridge.Application.Features.Learning.DTO;
+﻿using AnkiBridge.Application.Common.Query.Pagination;
+using AnkiBridge.Application.Features.Learning.Contracts.QueryServices;
+using AnkiBridge.Application.Features.Learning.Contracts.QueryServices.Models;
 using AnkiBridge.Shared.Results;
 using MediatR;
 
 namespace AnkiBridge.Application.Features.Learning.UseCases.SearchLearningEntries;
 
 public sealed class SearchLearningEntriesHandler(ILearningEntryQueryService queryService)
-    : IRequestHandler<SearchLearningEntriesQuery, Result<PaginatedData<LearningEntrySearchResultDTO>>>
+    : IRequestHandler<SearchLearningEntriesQuery, Result<PaginatedResult<LearningEntrySearchResult>>>
 {
-    public async Task<Result<PaginatedData<LearningEntrySearchResultDTO>>> Handle(
+    public async Task<Result<PaginatedResult<LearningEntrySearchResult>>> Handle(
         SearchLearningEntriesQuery request, 
         CancellationToken cancellationToken)
     {

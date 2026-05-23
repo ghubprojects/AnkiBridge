@@ -12,7 +12,7 @@ public partial class LearningEntryCreate
 {
     private EditContext editContext = default!;
 
-    private LearningEntryDetailViewModel Detail { get; set; } = new();
+    private LearningEntryDetailModel Detail { get; set; } = new();
 
     private bool IsLookingUp { get; set; }
     private bool IsSubmitting { get; set; }
@@ -113,7 +113,7 @@ public partial class LearningEntryCreate
 
     private void ClearForm()
     {
-        Detail = new LearningEntryDetailViewModel();
+        Detail = new LearningEntryDetailModel();
         editContext = new EditContext(Detail);
     }
 

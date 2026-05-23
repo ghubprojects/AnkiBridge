@@ -1,4 +1,4 @@
-﻿using AnkiBridge.Application.Abstractions.Dispatching;
+﻿using AnkiBridge.Web.Common.Dispatching;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 

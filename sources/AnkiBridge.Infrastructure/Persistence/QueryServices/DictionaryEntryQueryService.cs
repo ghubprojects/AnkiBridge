@@ -1,6 +1,6 @@
-﻿using AnkiBridge.Application.Abstractions.Query.Pagination;
-using AnkiBridge.Application.Features.Dictionary.Abstractions;
-using AnkiBridge.Application.Features.Dictionary.DTO;
+﻿using AnkiBridge.Application.Common.Query.Pagination;
+using AnkiBridge.Application.Features.Dictionary.Contracts.QueryServices;
+using AnkiBridge.Application.Features.Dictionary.Contracts.QueryServices.Models;
 using AnkiBridge.Infrastructure.Persistence.DatabaseContext;
 using AnkiBridge.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ public sealed class DictionaryEntryQueryService(
     ApplicationDbContext context)
     : IDictionaryEntryQueryService
 {
-    public async Task<PaginatedData<DictionaryEntrySearchResultDTO>> SearchAsync(
+    public async Task<PaginatedResult<DictionaryEntrySearchResult>> SearchAsync(
         string keyword,
         int pageNumber,
         int pageSize,
@@ -21,17 +21,17 @@ public sealed class DictionaryEntryQueryService(
             .AsNoTracking()
             .Where(x => EF.Functions.Like(x.Headword, $"%{keyword}%"))
             .OrderBy(x => x.Headword)
-            .ToPaginatedDataAsync(
+            .ToPaginatedResultAsync(
                 pageNumber,
                 pageSize,
-                x => new DictionaryEntrySearchResultDTO(
+                x => new DictionaryEntrySearchResult(
                     x.Id,
                     x.Headword,
                     x.PartOfSpeech),
                 cancellationToken);
     }
 
-    public async Task<DictionaryEntryDetailDTO?> GetAsync(
+    public async Task<DictionaryEntryDetail?> GetAsync(
         Guid id,
         CancellationToken cancellationToken)
     {
@@ -43,18 +43,18 @@ public sealed class DictionaryEntryQueryService(
             .Include(e => e.Images)
             .AsSplitQuery()
             .Where(x => x.Id == id)
-            .Select(x => new DictionaryEntryDetailDTO(
+            .Select(x => new DictionaryEntryDetail(
                 x.Id,
                 x.Headword,
                 x.PartOfSpeech,
                 x.Pronunciations
-                    .Select(p => new PronunciationDTO(
+                    .Select(p => new DictionaryEntryDetailPronunciation(
                         p.Accent,
                         p.Ipa,
                         p.AudioUrl))
                     .ToList(),
                 x.Definitions
-                    .Select(d => new DefinitionDTO(
+                    .Select(d => new DictionaryEntryDetailDefinition(
                         d.Text,
                         d.Examples.Select(e => e.Text).ToList()))
                     .ToList(),

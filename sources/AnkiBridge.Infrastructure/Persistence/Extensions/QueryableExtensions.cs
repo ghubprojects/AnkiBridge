@@ -1,4 +1,4 @@
-﻿using AnkiBridge.Application.Abstractions.Query.Pagination;
+﻿using AnkiBridge.Application.Common.Query.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -16,7 +16,7 @@ public static class QueryableExtensions
             .Take(pageSize);
     }
 
-    public static async Task<PaginatedData<TResult>> ToPaginatedDataAsync<T, TResult>(
+    public static async Task<PaginatedResult<TResult>> ToPaginatedResultAsync<T, TResult>(
         this IQueryable<T> query,
         int pageNumber,
         int pageSize,
@@ -30,6 +30,6 @@ public static class QueryableExtensions
             .Select(selector)
             .ToListAsync(cancellationToken);
 
-        return PaginatedData<TResult>.Create(items, pageNumber, pageSize, totalCount);
+        return PaginatedResult<TResult>.Create(items, pageNumber, pageSize, totalCount);
     }
 }
