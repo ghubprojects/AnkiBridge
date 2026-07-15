@@ -1,0 +1,151 @@
+@page "/learning-items/new"
+@rendermode InteractiveServer
+
+<PageTitle>Create learning item · AnkiBridge</PageTitle>
+
+<div class="learning-shell">
+    <section class="learning-hero">
+        <div class="eyebrow">Learning workspace</div>
+        <h1>Create a learning item</h1>
+        <p>Start from a cached Cambridge entry or craft a personal vocabulary snapshot from scratch.</p>
+    </section>
+
+    <div class="learning-grid">
+        <section class="form-card">
+            <div class="form-section-heading">
+                <div>
+                    <h2>Entry details</h2>
+                    <p class="section-caption">Required fields are ready for a quick manual edit.</p>
+                </div>
+                @if (_form.DictionaryEntryId is not null)
+                {
+                    <FluentBadge Appearance="Appearance.Accent">From Cambridge</FluentBadge>
+                }
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <div class="error-card">@_errorMessage</div>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(_statusMessage))
+            {
+                <div class="status-card">@_statusMessage</div>
+            }
+
+            <div class="field-grid">
+                <FluentTextField Label="Headword or phrase" Placeholder="e.g. take into account" @bind-Value="_form.Headword" />
+                <FluentSelect TOption="string" Label="Part of speech" @bind-Value="_form.PartOfSpeech">
+                    @foreach (var partOfSpeech in Enum.GetValues<PartOfSpeech>())
+                    {
+                        <FluentOption TOption="string" Value="@partOfSpeech.ToString()">@FormatEnum(partOfSpeech)</FluentOption>
+                    }
+                </FluentSelect>
+
+                <FluentTextField Class="span-two" Label="Cloze" Placeholder="_ _ _ _ _" @bind-Value="_form.Cloze" />
+                <FluentTextArea Class="span-two" Label="Definition" Rows="3" @bind-Value="_form.Definition" />
+
+                <FluentTextField Label="Translation" @bind-Value="_form.Translation" />
+                <FluentSelect TOption="string" Label="Translation source" @bind-Value="_form.TranslationSource">
+                    @foreach (var source in Enum.GetValues<TranslationSource>().Where(source => source != TranslationSource.Unknown))
+                    {
+                        <FluentOption TOption="string" Value="@source.ToString()">@FormatEnum(source)</FluentOption>
+                    }
+                </FluentSelect>
+
+                <FluentTextField Label="IPA" Placeholder="/ˈwɜːd/" @bind-Value="_form.Ipa" />
+                <FluentSelect TOption="string" Label="Accent" @bind-Value="_form.Accent">
+                    @foreach (var accent in Enum.GetValues<Accent>().Where(accent => accent != Accent.Unknown))
+                    {
+                        <FluentOption TOption="string" Value="@accent.ToString()">@FormatEnum(accent)</FluentOption>
+                    }
+                </FluentSelect>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-heading">
+                    <h3>Examples</h3>
+                    <span>Up to three examples</span>
+                </div>
+                <div class="field-grid">
+                    <FluentTextField Class="span-two" Label="Example 1" @bind-Value="_form.Example1" />
+                    <FluentTextField Class="span-two" Label="Example 2" @bind-Value="_form.Example2" />
+                    <FluentTextField Class="span-two" Label="Example 3" @bind-Value="_form.Example3" />
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <FluentButton Appearance="Appearance.Outline" @onclick="Cancel">Cancel</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" Disabled="_isCreating" @onclick="CreateAsync">
+                    @(_isCreating ? "Creating…" : "Create learning item")
+                </FluentButton>
+            </div>
+        </section>
+
+        <aside class="context-card">
+            <h2>Dictionary helper</h2>
+            <p class="section-caption">Search local cache before deciding to scrape Cambridge.</p>
+
+            <div class="search-row">
+                <FluentTextField Placeholder="Search a word or phrase" @bind-Value="_searchTerm" />
+                <FluentButton Appearance="Appearance.Accent" Disabled="_isSearching" @onclick="SearchDictionaryAsync">
+                    @(_isSearching ? "Searching…" : "Search")
+                </FluentButton>
+            </div>
+
+            @if (_hasSearched && _dictionaryCandidates.Count == 0 && !_isSearching)
+            {
+                <div class="empty-card">No cached entry found for “@_searchTerm”.</div>
+                <FluentButton Class="w-100" Appearance="Appearance.Outline" Disabled="_isScraping" @onclick="ScrapeAsync">
+                    @(_isScraping ? "Scraping Cambridge…" : "Scrape Cambridge")
+                </FluentButton>
+            }
+
+            @if (_dictionaryCandidates.Count > 0)
+            {
+                <div class="candidate-list">
+                    @foreach (var candidate in _dictionaryCandidates)
+                    {
+                        <button class="candidate-card @(_selectedCandidate?.Id == candidate.Id ? "selected" : string.Empty)"
+                                type="button"
+                                @onclick="() => SelectCandidate(candidate)">
+                            <div class="candidate-title">
+                                <strong>@candidate.Headword</strong>
+                                <FluentBadge Appearance="Appearance.Neutral">@FormatEnum(candidate.PartOfSpeech)</FluentBadge>
+                            </div>
+                            <p>@candidate.Definitions.FirstOrDefault()?.Text</p>
+                            @if (candidate.Images.Count > 0)
+                            {
+                                <div class="candidate-images">
+                                    @foreach (var image in candidate.Images.Take(3))
+                                    {
+                                        <img src="@image.Url" alt="@candidate.Headword" />
+                                    }
+                                </div>
+                            }
+                        </button>
+                    }
+                </div>
+            }
+
+            @if (_selectedCandidate is not null)
+            {
+                <div class="preview-block">
+                    <div class="eyebrow">Selected source</div>
+                    <p class="preview-word">@_selectedCandidate.Headword</p>
+                    <p class="preview-ipa">@_form.Ipa</p>
+                    <p class="preview-definition">@_form.Definition</p>
+                    @if (SelectedExamples.Count > 0)
+                    {
+                        <ul class="preview-examples">
+                            @foreach (var example in SelectedExamples)
+                            {
+                                <li>@example</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+        </aside>
+    </div>
+</div>

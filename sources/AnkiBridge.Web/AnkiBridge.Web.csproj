@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AnkiBridge.Application\AnkiBridge.Application.csproj" />
+    <ProjectReference Include="..\AnkiBridge.Infrastructure\AnkiBridge.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\aspire\AnkiBridge.ServiceDefaults\AnkiBridge.ServiceDefaults.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.9" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.14.3" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.3" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,72 @@
+@page "/learning-items"
+@rendermode InteractiveServer
+
+<PageTitle>Learning items · AnkiBridge</PageTitle>
+
+<div class="learning-shell">
+    <section class="learning-hero">
+        <div class="eyebrow">Personal vocabulary</div>
+        <h1>Learning items</h1>
+        <p>Your personal snapshots, ready to refine and eventually export to Anki.</p>
+    </section>
+
+    <section class="list-card">
+        <div class="list-toolbar">
+            <div>
+                <h2>Your learning library</h2>
+                <p class="section-caption">@_entries.Count item@(_entries.Count == 1 ? string.Empty : "s") saved</p>
+            </div>
+            <FluentButton Appearance="Appearance.Accent" @onclick="CreateNew">
+                Create learning item
+            </FluentButton>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(_errorMessage))
+        {
+            <div class="error-card">@_errorMessage</div>
+        }
+        else if (_isLoading)
+        {
+            <div class="empty-card">Loading your learning library…</div>
+        }
+        else if (_entries.Count == 0)
+        {
+            <div class="empty-card">
+                No learning items yet. Create one manually or start from a cached Cambridge entry.
+            </div>
+        }
+        else
+        {
+            <div class="learning-table">
+                <FluentDataGrid Items="@_entries.AsQueryable()" GridTemplateColumns="1.3fr .8fr 1.5fr 1.15fr .8fr" TGridItem="LearningEntryListItem">
+                    <TemplateColumn Title="Word">
+                        <div class="word-cell">
+                            <strong>@context.Headword</strong>
+                            <span>@context.Ipa</span>
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="Type">
+                        <FluentBadge Appearance="Appearance.Neutral">@context.PartOfSpeech</FluentBadge>
+                    </TemplateColumn>
+                    <TemplateColumn Title="Meaning">
+                        <div>@context.Definition</div>
+                        <div class="muted">@context.Translation</div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="Origin">
+                        @if (context.DictionaryEntryId is not null)
+                        {
+                            <span class="manual-note">Cambridge cache</span>
+                        }
+                        else
+                        {
+                            <span class="manual-note">Manual</span>
+                        }
+                    </TemplateColumn>
+                    <TemplateColumn Title="Examples">
+                        @context.ExampleCount
+                    </TemplateColumn>
+                </FluentDataGrid>
+            </div>
+        }
+    </section>
+</div>
